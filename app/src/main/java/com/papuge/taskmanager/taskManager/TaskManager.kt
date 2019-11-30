@@ -9,35 +9,18 @@ object TaskManager {
     private val TAG = "TaskManager"
 
     fun getAllCpuUsage(): Double {
-
-        // returns CPU usage in percentage
-
-        val cpuStat = File("/proc/stat").useLines { it.first() }
-        val str = cpuStat.split(" ")
-        Log.d(TAG, "String to parse - $str")
-        val times = str
-            .filter { it != "" }
-            .drop(1)
-            .map { it.toLong() }
+        val times = getCpuTimes()
         val totalTime = times.sum().toDouble()
         Log.d(TAG, "total time- $totalTime")
         val idle = times[3].toDouble()
         Log.d(TAG, "idle - $idle")
-        return (1.0 - idle/totalTime) * 100
+        return (1.0 - idle/totalTime) * 100  // return usage in percentage
     }
 
-    fun calculateUsage(): List<ProcessUsage> {
+    fun getAllProcessUsage(): List<ProcessUsage> {
+        val totalTimeBefore = getCpuTimes().sum().toDouble()
+
         val pidStatFilesBefore = getPidStatFiles()
-        val cpuStat = File("/proc/stat")
-
-        var totalTimeBefore = cpuStat
-             .useLines { it.first() }
-             .split(" ")
-             .filter { it != "" }
-             .drop(1)
-             .map { number -> number.toLong() }
-             .sum().toDouble()
-
         var pidsBefore = getProcessInfos(pidStatFilesBefore)
         try {
             Thread.sleep(50)
@@ -45,24 +28,20 @@ object TaskManager {
 
         val pidStatFilesAfter = getPidStatFiles()
         val pidStatFiles = pidStatFilesBefore.toSet().intersect(pidStatFilesAfter).toList()
+
+        val pidsAfter = getProcessInfos(pidStatFiles)
+
         val stillExistingPids = pidStatFiles.map { it -> it.toString()
             .substringAfter("/proc/")
             .substringBefore("/stat")
         }
         pidsBefore = pidsBefore.filter { it.pid in stillExistingPids }
-        val pidsAfter = getProcessInfos(pidStatFiles)
 
-        val totalTimeAfter = cpuStat
-            .useLines { it.first() }
-            .split(" ")
-            .filter { it != "" }
-            .drop(1)
-            .map { number -> number.toLong() }
-            .sum().toDouble()
+        val totalTimeAfter = getCpuTimes().sum().toDouble()
 
         val totalTime = totalTimeAfter - totalTimeBefore
         val processesUsage = mutableListOf<ProcessUsage>()
-        for (i in pidStatFilesBefore.indices) {
+        for (i in pidStatFiles.indices) {
             val userUsage = (pidsAfter[i].utime - pidsBefore[i].utime).toDouble()
             val sysUsage = (pidsAfter[i].stime - pidsBefore[i].stime).toDouble()
             val cpuUsage = (userUsage + sysUsage) / totalTime * 100
@@ -93,9 +72,20 @@ object TaskManager {
 
     private fun getPidStatFiles(): List<File> {
         val dir = File("/proc/")
-        var dirs = dir.listFiles().filter { it.isDirectory && it.toString().substringAfter("/proc/")
-            .isDigitsOnly() }?.toList()
+        val dirs = dir.listFiles()!!.filter { it.isDirectory && it.toString()
+            .substringAfter("/proc/")
+            .isDigitsOnly() }.toList()
         return dirs.map { pid -> File("$pid/stat") }
+    }
+
+    private fun getCpuTimes(): List<Long> {
+        val cpuStat = File("/proc/stat")
+        return cpuStat
+            .useLines { it.first() }
+            .split(" ")
+            .filter { it != "" }
+            .drop(1)
+            .map { number -> number.toLong() }
     }
 }
 
