@@ -23,7 +23,7 @@ object TaskManager {
         val pidStatFilesBefore = getPidStatFiles()
         var pidsBefore = getProcessInfos(pidStatFilesBefore)
         try {
-            Thread.sleep(50)
+            Thread.sleep(300)
         } catch (e: Exception) { }
 
         val pidStatFilesAfter = getPidStatFiles()
