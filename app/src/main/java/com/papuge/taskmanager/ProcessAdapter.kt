@@ -41,7 +41,7 @@ class ProcessAdapter(
         fun bind(processUsage: ProcessUsage) {
             pid.text = processUsage.process.pid
             commandName.text = processUsage.process.commandName
-            cpuUsage.text = "%.3f".format(processUsage.cpuUsage)
+            cpuUsage.text = "%.2f".format(processUsage.cpuUsage)
             state.text = processUsage.process.state
             memory.text = processUsage.process.vmSizeKb.toInt().toString()
         }

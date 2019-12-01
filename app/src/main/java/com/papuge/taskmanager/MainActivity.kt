@@ -2,6 +2,7 @@ package com.papuge.taskmanager
 
 import android.app.Activity
 import android.app.ActivityManager
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.papuge.taskmanager.extra.BackgroundService
 import com.papuge.taskmanager.taskManager.TaskManager
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mainHandler = Handler(Looper.getMainLooper())
-
+        startService(Intent(this, BackgroundService::class.java))
 
         setUpChartAttrs()
         setUpDatasetAttrs()
@@ -68,6 +70,11 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         mainHandler.removeCallbacks(updateUsageInfo)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(Intent(this, BackgroundService::class.java))
     }
 
     private fun updateViews() {

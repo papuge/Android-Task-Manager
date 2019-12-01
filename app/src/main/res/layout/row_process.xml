@@ -25,11 +25,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="3dp"
         android:text="@string/cpu"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pro_state"
         app:layout_constraintStart_toEndOf="@+id/pro_command"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="2.234" />
+        tools:text="2.23" />
 
     <TextView
         android:id="@+id/pro_pid"

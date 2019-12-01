@@ -9,5 +9,5 @@ data class ProcessInfo(
     private val vmSizeBytes: Double
 ) {
     val vmSizeKb: Double
-        get() = vmSizeBytes / 1000
+        get() = vmSizeBytes / 1024
 }
