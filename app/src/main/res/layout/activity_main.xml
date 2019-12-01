@@ -13,6 +13,8 @@
         android:layout_marginTop="20dp"
         android:text="@string/total_cpu_usage"
         android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,9 +31,10 @@
 
     <TextView
         android:id="@+id/tv_command"
-        android:layout_width="100dp"
+        android:layout_width="127dp"
         android:layout_height="wrap_content"
         android:text="@string/command"
+        style="@style/TableHeader"
         app:layout_constraintStart_toEndOf="@+id/tv_pid"
         app:layout_constraintTop_toBottomOf="@+id/cpu_chart" />
 
@@ -40,14 +43,16 @@
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="@string/cpu"
+        style="@style/TableHeader"
         app:layout_constraintStart_toEndOf="@+id/tv_command"
         app:layout_constraintTop_toBottomOf="@+id/cpu_chart" />
 
     <TextView
         android:id="@+id/tv_pid"
-        android:layout_width="45dp"
+        android:layout_width="55dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        style="@style/TableHeader"
         android:text="@string/pid"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpu_chart" />
@@ -57,35 +62,39 @@
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:text="@string/mem"
-        android:gravity="center"
+        style="@style/TableHeader"
         app:layout_constraintStart_toEndOf="@+id/tv_state"
-        app:layout_constraintTop_toBottomOf="@+id/cpu_chart" />
+        app:layout_constraintTop_toBottomOf="@+id/cpu_chart"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/tv_state"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
         android:text="@string/state"
+        style="@style/TableHeader"
         app:layout_constraintStart_toEndOf="@+id/tv_cpu"
         app:layout_constraintTop_toBottomOf="@+id/cpu_chart" />
 
-    <TextView
-        android:id="@+id/tv_start_time"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:text="@string/time"
-        app:layout_constraintStart_toEndOf="@+id/tv_memory"
-        app:layout_constraintTop_toBottomOf="@+id/cpu_chart"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/processes_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/processes_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        app:layout_constraintStart_toEndOf="@+id/tv_memory"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_pid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

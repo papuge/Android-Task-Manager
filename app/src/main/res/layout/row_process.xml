@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/pro_command"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="3dp"
         android:lines="1"
@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/pro_pid"
-        android:layout_width="45dp"
+        android:layout_width="55dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:layout_marginEnd="3dp"
@@ -52,7 +52,7 @@
         android:gravity="center"
         android:lines="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/pro_start_time"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pro_state"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1456344kb" />
@@ -61,22 +61,12 @@
         android:id="@+id/pro_state"
         android:layout_width="35dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/pro_memory"
         app:layout_constraintStart_toEndOf="@+id/pro_cpu"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="R" />
 
-    <TextView
-        android:id="@+id/pro_start_time"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pro_memory"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1456344s" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

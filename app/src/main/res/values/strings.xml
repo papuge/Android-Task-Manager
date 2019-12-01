@@ -4,7 +4,6 @@
     <string name="command">Command</string>
     <string name="cpu">CPU, %</string>
     <string name="state">State</string>
-    <string name="time">Time</string>
-    <string name="mem">MEM</string>
+    <string name="mem">MEM, kb</string>
     <string name="pid">PID</string>
 </resources>

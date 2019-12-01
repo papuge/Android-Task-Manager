@@ -62,8 +62,7 @@ object TaskManager {
                     state = attrs[2],
                     utime = attrs[13].toLong(),
                     stime = attrs[14].toLong(),
-                    vmSizeBytes = attrs[22].toDouble(),
-                    startTimeClock = attrs[21].toDouble()
+                    vmSizeBytes = attrs[22].toDouble()
                 )
             )
         }

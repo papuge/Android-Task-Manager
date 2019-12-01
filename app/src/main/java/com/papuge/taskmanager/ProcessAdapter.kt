@@ -37,7 +37,6 @@ class ProcessAdapter(
         private var cpuUsage: TextView = itemView.findViewById(R.id.pro_cpu)
         private var state: TextView = itemView.findViewById(R.id.pro_state)
         private var memory: TextView = itemView.findViewById(R.id.pro_memory)
-        private var startTime: TextView = itemView.findViewById(R.id.pro_start_time)
 
         fun bind(processUsage: ProcessUsage) {
             pid.text = processUsage.process.pid
@@ -45,7 +44,6 @@ class ProcessAdapter(
             cpuUsage.text = "%.3f".format(processUsage.cpuUsage)
             state.text = processUsage.process.state
             memory.text = processUsage.process.vmSizeKb.toInt().toString()
-            startTime.text = processUsage.process.startTimeSeconds.toInt().toString()
         }
     }
 }
