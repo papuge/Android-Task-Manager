@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_row_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <TextView
+        android:id="@+id/pro_command"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:lines="1"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pro_cpu"
+        app:layout_constraintStart_toEndOf="@+id/pro_pid"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="TaskManager" />
+
+    <TextView
+        android:id="@+id/pro_cpu"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:text="@string/cpu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pro_state"
+        app:layout_constraintStart_toEndOf="@+id/pro_command"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2.234" />
+
+    <TextView
+        android:id="@+id/pro_pid"
+        android:layout_width="45dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:text="@string/pid"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pro_command"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="34567" />
+
+    <TextView
+        android:id="@+id/pro_memory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:gravity="center"
+        android:lines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pro_start_time"
+        app:layout_constraintStart_toEndOf="@+id/pro_state"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1456344kb" />
+
+    <TextView
+        android:id="@+id/pro_state"
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/pro_memory"
+        app:layout_constraintStart_toEndOf="@+id/pro_cpu"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="R" />
+
+    <TextView
+        android:id="@+id/pro_start_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pro_memory"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1456344s" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

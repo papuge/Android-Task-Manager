@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
     lateinit var mainHandler: Handler
+    var adapter = ProcessAdapter(listOf())
 
     private var values = MutableList(10) { value -> 0f}
     private var dataset = LineDataSet(listOf<Entry>(), null)
@@ -39,9 +43,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         mainHandler = Handler(Looper.getMainLooper())
 
+
         setUpChartAttrs()
         setUpDatasetAttrs()
         setChartData()
+
+        processes_list.adapter = adapter
+        processes_list.layoutManager = LinearLayoutManager(this)
+        val decoration = DividerItemDecoration(this, LinearLayout.VERTICAL)
+        processes_list.addItemDecoration(decoration)
 
         val lineData = LineData(dataset)
         lineData.setValueTextSize(9f)
@@ -64,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         var cpuU1 = TaskManager.getAllCpuUsage()
         Log.d(TAG, "CPU - $cpuU1")
         var cpuU2 = TaskManager.getAllProcessUsage()
+        adapter.processes = cpuU2
         Log.d(TAG, "Processes - \n$cpuU2")
         val am = getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager
         val amProcesses = am.runningAppProcesses
@@ -108,7 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setUpChartAttrs() {
-        cpu_chart.setViewPortOffsets(0f, 0f, 0f, 0f)
+        cpu_chart.setViewPortOffsets(60f, 0f, 0f, 0f)
         cpu_chart.setBackgroundColor(Color.rgb(254, 254, 254))
 
         // no description text
@@ -120,18 +131,18 @@ class MainActivity : AppCompatActivity() {
         x.isEnabled = false
 
         val y: YAxis = cpu_chart.axisLeft
-        y.setLabelCount(10, false)
-        y.axisMinimum = 0f
-        y.axisMaximum = 10f
+        y.setLabelCount(5, false)
+        y.axisMaximum = 103f
+        y.axisMinimum = -2f
         y.textColor = Color.BLACK
-        y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
-        y.setDrawGridLines(false)
+        y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+        y.setDrawGridLines(true)
         y.axisLineColor = Color.WHITE
 
         cpu_chart.axisRight.isEnabled = false
 
         cpu_chart.legend.isEnabled = false
 
-        cpu_chart.animateXY(100, 100)
+        cpu_chart.animateXY(50, 50)
     }
 }

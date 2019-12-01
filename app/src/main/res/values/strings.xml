@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">TaskManager</string>
+    <string name="app_name">Task manager</string>
     <string name="total_cpu_usage">Total cpu usage - %s</string>
+    <string name="command">Command</string>
+    <string name="cpu">CPU, %</string>
+    <string name="state">State</string>
+    <string name="time">Time</string>
+    <string name="mem">MEM</string>
+    <string name="pid">PID</string>
 </resources>
