@@ -6,6 +6,7 @@ data class ProcessInfo(
     val state: String,
     val utime: Long,
     val stime: Long,
+    val cpu: Double = 0.0,
     private val vmSizeBytes: Double
 ) {
     val vmSizeKb: Double

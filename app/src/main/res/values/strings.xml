@@ -2,8 +2,8 @@
     <string name="app_name">Task manager</string>
     <string name="total_cpu_usage">Total cpu usage - %s</string>
     <string name="command">Command</string>
-    <string name="cpu">CPU, %</string>
+    <string name="cpu">CPU</string>
     <string name="state">State</string>
-    <string name="mem">MEM, kb</string>
+    <string name="mem">VSIZE</string>
     <string name="pid">PID</string>
 </resources>

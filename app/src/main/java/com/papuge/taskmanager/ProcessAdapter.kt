@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.papuge.taskmanager.taskManager.ProcessInfoPs
 import com.papuge.taskmanager.taskManager.ProcessUsage
 
 class ProcessAdapter(
-    private var _processes: List<ProcessUsage>
+    private var _processes: List<ProcessInfoPs>
 ): RecyclerView.Adapter<ProcessAdapter.ViewHolder>() {
 
-    var processes: List<ProcessUsage>
+    var processes: List<ProcessInfoPs>
         get() {
             return _processes
         }
@@ -38,12 +39,12 @@ class ProcessAdapter(
         private var state: TextView = itemView.findViewById(R.id.pro_state)
         private var memory: TextView = itemView.findViewById(R.id.pro_memory)
 
-        fun bind(processUsage: ProcessUsage) {
-            pid.text = processUsage.process.pid
-            commandName.text = processUsage.process.commandName
-            cpuUsage.text = "%.2f".format(processUsage.cpuUsage)
-            state.text = processUsage.process.state
-            memory.text = processUsage.process.vmSizeKb.toInt().toString()
+        fun bind(processPs: ProcessInfoPs) {
+            pid.text = processPs.pid
+            commandName.text = processPs.commandName
+            cpuUsage.text = processPs.cpu
+            state.text = processPs.state
+            memory.text = processPs.vSetSize
         }
     }
 }

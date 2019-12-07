@@ -2,7 +2,11 @@ package com.papuge.taskmanager.taskManager
 
 import android.util.Log
 import androidx.core.text.isDigitsOnly
+import java.io.BufferedReader
+import java.io.DataOutputStream
 import java.io.File
+import java.io.InputStreamReader
+
 
 object TaskManager {
 
@@ -15,6 +19,42 @@ object TaskManager {
         val idle = times[3].toDouble()
         Log.d(TAG, "idle - $idle")
         return (1.0 - idle/totalTime) * 100  // return usage in percentage
+    }
+
+    fun getInfoFromPs(): List<ProcessInfoPs> {
+        val su = Runtime.getRuntime().exec("su")
+        val outputStream = DataOutputStream(su.outputStream)
+
+        outputStream.writeBytes("ps -c" + "\n")
+        outputStream.flush()
+
+        val reader = BufferedReader(InputStreamReader(su.inputStream))
+        var processes = mutableListOf<ProcessInfoPs>()
+        var lines = mutableListOf<String>()
+
+        for (i in 1..150) {
+            lines.add(reader.readLine())
+        }
+
+        reader.close()
+
+        lines.drop(1)
+            .forEach { line ->
+                var splited = line.split(Regex("""\s+"""))
+                Log.d(TAG, "splt. $splited")
+                processes.add(
+                    ProcessInfoPs(
+                    splited[1], splited[3], splited[5],
+                    splited[8], splited[9]
+                    )
+                )
+            }
+
+        outputStream.writeBytes("exit" + "\n")
+        outputStream.flush()
+        outputStream.close()
+        su.waitFor()
+        return processes.sortedByDescending { it.cpu.toInt() }
     }
 
     fun getAllProcessUsage(): List<ProcessUsage> {

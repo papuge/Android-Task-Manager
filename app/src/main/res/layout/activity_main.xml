@@ -23,7 +23,7 @@
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/cpu_chart"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="130dp"
         android:layout_margin="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -42,7 +42,7 @@
     <TextView
         android:id="@+id/tv_command"
         android:layout_width="130dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="10dp"
         android:layout_height="wrap_content"
         android:text="@string/command"
         style="@style/TableHeader"
@@ -61,9 +61,10 @@
 
     <TextView
         android:id="@+id/tv_memory"
-        android:layout_width="70dp"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="@string/mem"
+        android:gravity="center"
         style="@style/TableHeader"
         app:layout_constraintStart_toEndOf="@+id/tv_state"
         app:layout_constraintTop_toBottomOf="@+id/cpu_chart"
@@ -71,7 +72,7 @@
 
     <TextView
         android:id="@+id/tv_state"
-        android:layout_width="35dp"
+        android:layout_width="39dp"
         android:layout_height="wrap_content"
         android:text="@string/state"
         style="@style/TableHeader"
