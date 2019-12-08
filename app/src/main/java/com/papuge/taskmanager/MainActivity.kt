@@ -19,7 +19,6 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.papuge.taskmanager.extra.BackgroundService
 import com.papuge.taskmanager.taskManager.TaskManager
-import com.papuge.taskmanager.taskManager.TaskManager.getInfoFromPs
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -81,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateViews() {
         var cpuU1 = TaskManager.getAllCpuUsage()
         Log.d(TAG, "CPU - $cpuU1")
-        var cpuU2 = TaskManager.getInfoFromPs()
+        var cpuU2 = TaskManager.getInfoFromTop()
         adapter.processes = cpuU2
         Log.d(TAG, "Processes - \n$cpuU2")
         val am = getSystemService(Activity.ACTIVITY_SERVICE) as ActivityManager

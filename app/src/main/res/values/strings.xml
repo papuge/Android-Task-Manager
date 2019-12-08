@@ -4,6 +4,6 @@
     <string name="command">Command</string>
     <string name="cpu">CPU</string>
     <string name="state">State</string>
-    <string name="mem">VSIZE</string>
+    <string name="mem">RSS</string>
     <string name="pid">PID</string>
 </resources>

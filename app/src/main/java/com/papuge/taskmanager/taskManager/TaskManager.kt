@@ -21,31 +21,31 @@ object TaskManager {
         return (1.0 - idle/totalTime) * 100  // return usage in percentage
     }
 
-    fun getInfoFromPs(): List<ProcessInfoPs> {
+    fun getInfoFromTop(): List<ProcessInfoTop> {
         val su = Runtime.getRuntime().exec("su")
         val outputStream = DataOutputStream(su.outputStream)
 
-        outputStream.writeBytes("ps -c" + "\n")
+        outputStream.writeBytes("top -n -1" + "\n")
         outputStream.flush()
 
         val reader = BufferedReader(InputStreamReader(su.inputStream))
-        var processes = mutableListOf<ProcessInfoPs>()
+        var processes = mutableListOf<ProcessInfoTop>()
         var lines = mutableListOf<String>()
 
-        for (i in 1..150) {
+        for (i in 1..100) {
             lines.add(reader.readLine())
         }
 
         reader.close()
 
-        lines.drop(1)
+        lines.drop(4)
             .forEach { line ->
-                var splited = line.split(Regex("""\s+"""))
+                var splited = line.split(Regex("""\s+""")).filter { it != "" }
                 Log.d(TAG, "splt. $splited")
                 processes.add(
-                    ProcessInfoPs(
-                    splited[1], splited[3], splited[5],
-                    splited[8], splited[9]
+                    ProcessInfoTop(
+                    splited[0], splited[4], splited[5],
+                    splited[8], splited[10]
                     )
                 )
             }
@@ -53,8 +53,10 @@ object TaskManager {
         outputStream.writeBytes("exit" + "\n")
         outputStream.flush()
         outputStream.close()
-        su.waitFor()
-        return processes.sortedByDescending { it.cpu.toInt() }
+        Log.d(TAG, "Closing Streams")
+        su.destroy()
+        Log.d(TAG, "Su destroyed")
+        return processes
     }
 
     fun getAllProcessUsage(): List<ProcessUsage> {
