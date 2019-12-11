@@ -1,14 +1,17 @@
 package com.papuge.taskmanager
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.papuge.taskmanager.taskManager.ProcessInfoTop
+import com.papuge.taskmanager.taskManager.TaskManager
 
 class ProcessAdapter(
-    private var _processes: List<ProcessInfoTop>
+    val context: Context,
+    private var _processes: MutableList<ProcessInfoTop>
 ): RecyclerView.Adapter<ProcessAdapter.ViewHolder>() {
 
     var processes: List<ProcessInfoTop>
@@ -16,9 +19,17 @@ class ProcessAdapter(
             return _processes
         }
         set(value) {
-            _processes = value
+            _processes = value.toMutableList()
             notifyDataSetChanged()
         }
+
+
+    fun deleteItem(position: Int) {
+        var pid = _processes[position].pid.toInt()
+        TaskManager.killProcess(pid)
+        _processes.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_process, parent, false))
